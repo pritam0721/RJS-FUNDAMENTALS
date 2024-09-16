@@ -51,7 +51,13 @@ const reducer = (state, action) => {
       };
     }
   }
-
+  if (action.type === LOADING) {
+    return { ...state, loading: true };
+  }
+  if (action.type === DISPLAY_ITEMS) {
+    const newCart = new Map(action.payload.cart.map((item) => [item.id, item]));
+    return { ...state, cart: newCart, loading: false };
+  }
   throw new Error(`no matching type: ${action.type}`);
 };
 
